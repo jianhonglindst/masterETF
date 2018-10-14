@@ -20,7 +20,7 @@ crawler <- function(stock_id,   # :character = "0050"
     url = sprintf("http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=csv&date=%s&stockNo=%s", date, stock_id)
     
     # show crawler information
-    cat("----- Crawling Stock ID:", stock_id, "|| at Date:", date, "-----", "\n")
+    cat(sprintf("----- Crawling Stock ID: %s || at Date: %s ----- \n", stock_id, date))
     
     # crawling
     download.file(url = url,
