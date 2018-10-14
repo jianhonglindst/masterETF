@@ -4,9 +4,9 @@
 # the stock crawler (daily)
 
 # crawler
-crawler <- function(stock_id,   # :str = "0050"
-                    date,       # :str = YYYYMMDD (if use YYYY-MM-DD format will download the old data.)
-                    save_dir    # :str = "~/.../.../stock/"
+crawler <- function(stock_id,   # :character = "0050"
+                    date,       # :character = YYYYMMDD (if use YYYY-MM-DD format will download the old data.)
+                    save_dir    # :character = "~/.../.../stock/"
                     ) {
     
     # generating file name and setting the save path
