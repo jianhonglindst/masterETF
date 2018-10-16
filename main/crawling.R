@@ -4,10 +4,10 @@
 # the stock crawler (daily)
 
 # crawler: stock_day 
-crawler <- function(stock_id,   # :character = "0050"
-                    date,       # :character = YYYYMMDD (if use YYYY-MM-DD format will download the old data.)
-                    save_dir    # :character = "~/.../.../stock/"
-                    ) {
+crawler_stock_day <- function(stock_id,   # :character = "0050"
+                              date,       # :character = YYYYMMDD (if use YYYY-MM-DD format will download the old data.)
+                              save_dir    # :character = "~/.../.../stock/"
+                              ) {
     
     # generating file name and setting the save path
     if (endsWith(save_dir, "/")) {
@@ -29,9 +29,7 @@ crawler <- function(stock_id,   # :character = "0050"
 
 }
 
-
-
-# crawler: 
+# crawler: mi_index
 crawler_mi_index <- function(date,       # :character = YYYYMMDD (if use YYYY-MM-DD format will download the old data.)
                              response,   # :character = json/csv
                              save_dir    # :character = "~/.../.../stock/"
@@ -56,8 +54,3 @@ crawler_mi_index <- function(date,       # :character = YYYYMMDD (if use YYYY-MM
                   quiet = TRUE)
     
 }
-
-crawler_mi_index(date = '20181001',
-                 response = 'json',
-                 save_dir = '/media/lewislin/Ubuntu/crawler'
-                 )
