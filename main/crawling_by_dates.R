@@ -108,7 +108,7 @@ main <- function() {
     response = arguments$response
     module_path = path_check(path = arguments$module_path)
     save_path = path_check(path = arguments$save_path)
-    max_delay = ifelse(test = arguments$max_delay >= 5 ,yes = arguments$max_delay, no = 10) 
+    max_delay = ifelse(test = arguments$max_delay >= 5, yes = arguments$max_delay, no = 10) 
     
     # source the crawling fucntion
     source(paste0(module_path, 'crawling.R'))
