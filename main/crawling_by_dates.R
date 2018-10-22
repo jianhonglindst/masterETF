@@ -74,6 +74,28 @@ dates_generator <- function(start_time,
     return(dates) 
 }
 
+# read dates txt
+read_txt <- function(path,
+                     file_name
+                     ) {
+    
+    files = list.files(path = path, pattern = "*.txt")
+    files_names = gsub(pattern = ".txt", replacement = "", x = files)
+    
+    if (identical(files_names, character(0))) {
+        file = c("19700101")
+    } else {
+        for (name in files_names) {
+            if (name == file_name) {
+                file = readLines(con = paste0(path, file_name, ".txt"))
+            }
+        }
+    }
+
+    return(file)
+    
+}
+
 # main: crawling by dates
 main <- function() {
     
@@ -86,16 +108,36 @@ main <- function() {
     response = arguments$response
     module_path = path_check(path = arguments$module_path)
     save_path = path_check(path = arguments$save_path)
-    max_delay = arguments$max_delay
+    max_delay = ifelse(test = arguments$max_delay >= 5 ,yes = arguments$max_delay, no = 10) 
     
     # source the crawling fucntion
     source(paste0(module_path, 'crawling.R'))
     
     # get dates vector
-    dates = dates_generator(start_time = start_time,
-                            end_time = end_time)
+    ## request_dates
+    request_dates = dates_generator(start_time = start_time,
+                                    end_time = end_time)
+    ## cache dates
+    cache_dates = gsub(pattern = ".json", # step3: ignore ".json" text
+                       replacement = "",
+                       x = gsub(pattern = "mi_index_", # step2: ignore "mi_index_" text
+                                replacement = "",
+                                x = list.files(path = save_path,  # step1: read all name of files
+                                               pattern = "*.json")))
     
-    # work
+    ## error dates
+    error_date = read_txt(path = save_path,
+                          file_name = "error")
+    ## dates: { request - (suceess U error) }
+    dates = setdiff(x = request_dates, y = union(x = cache_dates, y = error_date)) 
+    
+    # cat crawling infomation
+    cat("----- Waitting to crawler dates list: ----- \n")
+    cat(dates)
+    cat("\n")
+    cat(sprintf("----- Start to Crawling ----- \n"))
+    
+    # worker
     for (day in dates) {
         
         start_time = proc.time()
@@ -104,6 +146,7 @@ main <- function() {
             crawler_mi_index(date = day,
                              response = response,
                              save_dir = save_path)
+            
         },
         error = function(err) {
             
@@ -123,7 +166,7 @@ main <- function() {
             # setting a random delay time
             Sys.sleep(ceiling(runif(1, 5, max_delay)))
             
-            cat(sprintf("----- %s second ----- \n", round((proc.time() - start_time)[[3]], 3)))
+            cat(sprintf("----- Sys.sleep: %s second ----- \n", round((proc.time() - start_time)[[3]], 3)))
             
         })
         
