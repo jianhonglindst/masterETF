@@ -4,7 +4,10 @@
 # download mi_index json file by day
 
 # pkgs
-library(optparse)
+suppressPackageStartupMessages({
+    library(optparse)
+    library(lubridate)
+})
 
 # command line
 read_arguments <- function() {
@@ -13,13 +16,13 @@ read_arguments <- function() {
         OptionParser(
             option_list = list(
                 make_option(opt_str = c("-start", "--start-date"),
-                            dest = "start_time",
+                            dest = "start_date",
                             default = "2013-10-01",
                             metavar = "yyyy-mm-dd",
                             help = "Setting the start date of crawling. (format: YYYY-MM-DD)(Default: %default)"),
                 make_option(opt_str = c("-end", "--end-date"),
-                            dest = "end_time",
-                            default = "2018-10-01",
+                            dest = "end_date",
+                            default = "now_date",
                             metavar = "yyyy-mm-dd",
                             help = "Setting the end date of crawling. (format: YYYY-MM-DD)(Default: %default)"
                             ),
@@ -63,11 +66,11 @@ path_check <- function(path) {
 }
 
 # dates generator: 
-dates_generator <- function(start_time,
-                            end_time,
+dates_generator <- function(start_date,
+                            end_date,
                             frequency = "day") {
     
-    dates = seq(from = as.Date(start_time), to = as.Date(end_time), by = frequency)
+    dates = seq(from = as.Date(start_date), to = as.Date(end_date), by = frequency)
     dates = as.character(dates)
     dates = gsub(pattern = "-", replacement = "", dates)
     
@@ -103,8 +106,8 @@ main <- function() {
     arguments = read_arguments()
     
     # setting arguments
-    start_time = arguments$start_time
-    end_time = arguments$end_time
+    start_date = arguments$start_date
+    end_date = ifelse(test = arguments$end_date == "now_date", yes = as.character(date(now())), no = arguments$end_date)
     response = arguments$response
     module_path = path_check(path = arguments$module_path)
     save_path = path_check(path = arguments$save_path)
@@ -115,8 +118,8 @@ main <- function() {
     
     # get dates vector
     ## request_dates
-    request_dates = dates_generator(start_time = start_time,
-                                    end_time = end_time)
+    request_dates = dates_generator(start_date = start_date,
+                                    end_date = end_date)
     ## cache dates
     cache_dates = gsub(pattern = ".json", # step3: ignore ".json" text
                        replacement = "",
