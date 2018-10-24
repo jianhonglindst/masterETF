@@ -14,8 +14,8 @@ parsing <- function(file # :string = full file path
     read_file = jsonlite::read_json(file)
     
     # read tc columns
-    tc_columns = read_file$fields5
-    tc_columns = unlist(tc_columns, use.names = FALSE)
+    #tc_columns = read_file$fields5
+    #tc_columns = unlist(tc_columns, use.names = FALSE)
     
     # set en columns
     en_columns = c("stock_code", "stock_name",
@@ -34,9 +34,11 @@ parsing <- function(file # :string = full file path
                               stringsAsFactors = FALSE)
     
     # parsing
-    for (.id in seq_along(data)) {
-        daily_quotes[.id, ] = unlist(data[[.id]])
+    for (.stock in seq_along(data)) {
+        daily_quotes[.stock, ] = unlist(data[[.stock]])
     }
+    
+    # setting the type of vars
     
     # return daily_quotes
     return(daily_quotes)  # :data.frame
