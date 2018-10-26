@@ -14,19 +14,19 @@
 
 #### 命令列說明
 
-序  | 實名變數       | 描述                  | 內容                  | 範例                       | 預設值      |
-----|----------------|-----------------------|-----------------------|----------------------------|-------------|
-[1] | `--start-date` | 起始日期              | `yyyy-mm-dd`          | `2013-10-01`               | `2013-10-01`|
-[2] | `--end-date`   | 結束日期              | `yyyy-mm-dd`          | `2018-10-01`               | `now_date`  |
-[3] | `--response`   | 檔案類型              | `json`(default), `csv`|  `json`                    | `json`      |
-[4] | `--module-path`| 子程式路徑            |`../../main`           | `/home/../masterETF/main`  | `-`         |
-[5] | `--save-path`  | 儲存資料路徑          | `../../mi_index`      | `../crawler/stock/mi_index`| `-`         |
-[6] | `--max-delay`  | 下載最大延遲時間 (sec)| `integer`             | `15`                       | `15`        |
+序  | 實名變數       | 描述                  | 內容                   | 範例                       | 預設值      |
+----|----------------|-----------------------|------------------------|----------------------------|-------------|
+[1] | `--start-date` | 起始日期              | `yyyy-mm-dd`           | `2013-10-01`               | `2013-10-01`|
+[2] | `--end-date`   | 結束日期              | `yyyy-mm-dd`           | `2018-10-01`               | `now_date`  |
+[3] | `--response`   | 檔案類型              | `json`(default), `csv` | `json`                     | `json`      |
+[4] | `--module-path`| masterETF的模組路徑   |`../../masterETF`       | `/home/../masterETF     `  | `-`         |
+[5] | `--save-path`  | 儲存資料路徑          | `../../mi_index`       | `../crawler/stock/mi_index`| `-`         |
+[6] | `--max-delay`  | 下載最大延遲時間 (sec)| `integer`              | `15`                       | `15`        |
 
 #### 使用範例
 
 ```
-Rscript /home/../masterETF/main/crawling_by_dates.R --start-date=2013-10-01 --end-date=2018-10-10 --module-path=/home/../masterETF/main --save-path=../crawler/stock/mi_index
+Rscript /home/../masterETF/main/crawling_by_dates.R --start-date=2013-10-01 --end-date=2018-10-10 --module-path=/home/../masterETF --save-path=../crawler/stock/mi_index
 ```
 
 #### note

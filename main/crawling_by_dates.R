@@ -114,7 +114,7 @@ main <- function() {
     max_delay = ifelse(test = arguments$max_delay >= 5, yes = arguments$max_delay, no = 10) 
     
     # source the crawling fucntion
-    source(paste0(module_path, 'crawling.R'))
+    source(paste0(module_path, 'main/crawling.R'))
     
     # get dates vector
     ## request_dates
@@ -131,6 +131,7 @@ main <- function() {
     ## error dates
     error_date = read_txt(path = save_path,
                           file_name = "error")
+    
     ## dates: { request - (suceess U error) }
     dates = setdiff(x = request_dates, y = union(x = cache_dates, y = error_date)) 
     
