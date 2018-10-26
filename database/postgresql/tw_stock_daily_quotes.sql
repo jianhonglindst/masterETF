@@ -51,4 +51,5 @@ COMMENT ON COLUMN "public"."tw_stock_daily_quotes"."price_eaming_ration" IS '本
 --  Indexes structure for table tw_stock_daily_quotes
 -- ----------------------------
 CREATE UNIQUE INDEX  "idx_tw_stock_daily_quotes" ON "public"."tw_stock_daily_quotes" USING btree("date" "pg_catalog"."date_ops" ASC NULLS LAST, stock_code COLLATE "default" "pg_catalog"."text_ops" ASC NULLS LAST);
-
+CREATE INDEX  "idx_tw_stock_daily_quotes_date" ON "public"."tw_stock_daily_quotes" USING btree("date" "pg_catalog"."date_ops" ASC NULLS LAST);
+CREATE INDEX  "idx_tw_stock_daily_quotes_stock_code" ON "public"."tw_stock_daily_quotes" USING btree(stock_code COLLATE "default" "pg_catalog"."text_ops" ASC NULLS LAST);
