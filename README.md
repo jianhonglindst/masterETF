@@ -13,6 +13,8 @@
     - version(2.0.0)
         - `crawling_worker.R` (main)
 - 爬蟲資料解析器
+    - version(1.0.0)
+        - `parsing.R`
 - 視覺化介面
 - 技術指標
 
