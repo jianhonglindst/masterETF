@@ -6,12 +6,15 @@
 
 #### 第一階段 
 
- - 每日收盤價爬蟲
- 	- `crawling.R`
- 	- `crawling_by_dates.R`
- - 爬蟲資料解析器
- - 視覺化介面
- - 技術指標
+- 每日收盤價爬蟲
+    - version(1.0.0)
+        - `crawling.R`
+        - `crawling_by_dates.R`
+    - version(2.0.0)
+        - `crawling_worker.R` (main)
+- 爬蟲資料解析器
+- 視覺化介面
+- 技術指標
 
 ## 開發環境
 
