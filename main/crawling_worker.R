@@ -15,31 +15,31 @@ read_arguments <- function() {
     arguments = parse_args(
         OptionParser(
             option_list = list(
-                make_option(opt_str = c("-start", "--start-date"),
-                            dest = "start_date",
+                make_option(opt_str = c("--start-date"),
+                            dest    = "start_date",
                             default = "2013-10-01",
                             metavar = "yyyy-mm-dd",
-                            help = "Setting the start date of crawling. (format: YYYY-MM-DD)(Default: %default)"),
+                            help    = "Setting the start date of crawling. (format: YYYY-MM-DD)(Default: %default)"),
                 make_option(opt_str = c("-end", "--end-date"),
-                            dest = "end_date",
+                            dest    = "end_date",
                             default = "now_date",
                             metavar = "yyyy-mm-dd",
-                            help = "Setting the end date of crawling. (format: YYYY-MM-DD)(Default: %default)"),
+                            help    = "Setting the end date of crawling. (format: YYYY-MM-DD)(Default: %default)"),
                 make_option(opt_str = c("-r", "--response"),
-                            dest = "response",
+                            dest    = "response",
                             default = "json",
                             metavar = "file type",
-                            help = "The type of download file. (json/csv)/(Default: %default)"),
+                            help    = "The type of download file. (json/csv)/(Default: %default)"),
                 make_option(opt_str = c("-sp", "--save-path"),
-                            dest = "save_path",
+                            dest    = "save_path",
                             default = NULL,
                             metavar = "",
-                            help = "Setting the path for save the download data and error record."),
+                            help    = "Setting the path for save the download data and error record."),
                 make_option(opt_str = c("-md", "--max-delay"),
-                            dest = "max_delay",
+                            dest    = "max_delay",
                             default = 15,
                             metavar = "max delay time (unit: second)",
-                            help = "Setting the maximum delay time of crawling, the minimum delay time is 5 sec.")
+                            help    = "Setting the maximum delay time of crawling, the minimum delay time is 5 sec.")
             )
         )
     )
