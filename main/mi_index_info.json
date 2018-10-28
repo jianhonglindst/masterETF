@@ -1,0 +1,18 @@
+{
+	"證券代號": "stock_code",
+	"證券名稱": "stock_name",
+	"成交股數": "trade_volume",
+	"成交筆數": "transaction",
+	"成交金額": "trade_value",
+	"開盤價": "opening_price",
+	"最高價": "highest_price",
+	"最低價": "lowest_price",
+	"收盤價": "closing_price",
+	"漲跌.....": "dir",
+	"漲跌價差": "change",
+	"最後揭示買價": "last_best_bid_price",
+	"最後揭示買量": "last_best_bid_volume",
+	"最後揭示賣價": "last_best_ask_price",
+	"最後揭示賣量": "last_best_ask_volume",
+	"本益比": "price_eaming_ratio"
+}
