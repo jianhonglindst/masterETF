@@ -43,6 +43,10 @@ parsing <- function(file # :string = full file path
         daily_quotes[stock, ] = unlist(data[[stock]])
     }
     
+    # add date column
+    date = as.character(read_file$date)
+    daily_quotes = cbind(date = date, daily_quotes)
+    
     # clean
     ## dir: convert '" ", "<p style= color:green>-</p>", "<p style= color:red>+</p>", "X"' to 'NA, "-", "+", "X"'
     daily_quotes[, "dir"] = lapply(X = daily_quotes[, "dir"],
@@ -59,9 +63,17 @@ parsing <- function(file # :string = full file path
     numeric_vars = c("trade_volume", "transaction", "trade_value", "opening_price", "highest_price", "lowest_price", "closing_price", "change", 
                      "last_best_bid_price", "last_best_bid_volume", "last_best_ask_price", "last_best_ask_volume", "price_eaming_ratio")
     
-    ## convert type
+    ## character type
+    character_vars = c("date", "stock_name", "dir")
+    
+    # convert type
+    ## numeric type
     daily_quotes[, numeric_vars] = lapply(X = daily_quotes[, numeric_vars],
                                           FUN = function(element) as.numeric(gsub(pattern = ",", replacement = "", x = element)))
+    
+    ## character type
+    daily_quotes[, character_vars] = lapply(X = daily_quotes[, character_vars],
+                                            FUN = as.character)
     
     # return daily_quotes
     return(daily_quotes)  # :data.frame

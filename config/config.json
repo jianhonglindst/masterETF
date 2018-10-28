@@ -1,0 +1,9 @@
+{
+	"postgres_tw_stock": {
+	    "host": "localhost",
+		"port": 15432,
+		"user": "postgres",
+		"password": "abcd1234zyxw0987",
+		"database": "postgres"
+	}
+}
