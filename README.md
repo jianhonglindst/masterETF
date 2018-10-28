@@ -15,6 +15,7 @@
 - 爬蟲資料解析器
     - version(1.0.0)
         - `parsing.R`
+        - `parsing_worker.R` (main)
 - 視覺化介面
 - 技術指標
 
@@ -36,8 +37,6 @@ R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 ```
-
-##
 
 ##  ABOUT ME
 
