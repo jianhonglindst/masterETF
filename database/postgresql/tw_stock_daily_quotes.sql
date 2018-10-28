@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS"public"."tw_stock_daily_quotes" (
 	"last_best_bid_volume" numeric,
 	"last_best_ask_price" numeric,
 	"last_best_ask_volume" numeric,
-	"price_eaming_ration" numeric
+	"price_eaming_ratio" numeric
 )
 WITH (OIDS=FALSE);
 
@@ -45,7 +45,7 @@ COMMENT ON COLUMN "public"."tw_stock_daily_quotes"."last_best_bid_price" IS '最
 COMMENT ON COLUMN "public"."tw_stock_daily_quotes"."last_best_bid_volume" IS '最後揭示買量';
 COMMENT ON COLUMN "public"."tw_stock_daily_quotes"."last_best_ask_price" IS '最後揭示賣價';
 COMMENT ON COLUMN "public"."tw_stock_daily_quotes"."last_best_ask_volume" IS '最後揭示賣量';
-COMMENT ON COLUMN "public"."tw_stock_daily_quotes"."price_eaming_ration" IS '本益比';
+COMMENT ON COLUMN "public"."tw_stock_daily_quotes"."price_eaming_ratio" IS '本益比';
 
 -- ----------------------------
 --  Indexes structure for table tw_stock_daily_quotes
