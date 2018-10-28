@@ -2,7 +2,8 @@
 
  序   | 功能          | 程式名稱                                 |
 ------|---------------|------------------------------------------|
-[1]   |每日收盤價爬蟲 | [crawling_worker.R](#crawling_worker)|
+[1]   |每日收盤價爬蟲 | [crawling_worker.R](#crawling_worker)    |
+[2]   |爬蟲資料解析器 | [parsing_worker.R](#parsing_worker)      |
  
 ## <span id = "crawling_worker"> 每日收盤價爬蟲: `crawling_worker.R` </span>
 
@@ -51,4 +52,31 @@ date:  2018/10/28
 fix: 
 	1. delete `moudle_path`
 	2. using new Rscript `crawling_worker.R`
+```
+
+## <span id = "parsing_worker"> 爬蟲資料解析器: `parsing_worker.R` </span>
+
+#### 功能描述
+
+1. 說明: TBD
+2. 時機: 任何時候/自訂排程。
+3. 方式: 命令列呼叫
+
+#### 命令列說明
+
+TBD
+
+#### 使用範例
+
+TBD
+
+#### note
+
+TBD
+
+#### 版本紀錄
+
+```
+versio: 1.0.0 (parsing_worker.R)
+date: 2018/10/24
 ```

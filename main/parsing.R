@@ -4,7 +4,12 @@
 # parsing function of the mi_index data
 
 # pkgs
-library(jsonlite)
+suppressPackageStartupMessages({
+    library(jsonlite) 
+})
+
+# env setting: for ignore the warning message
+options(warn=-1)
 
 # parsing function from single file
 parsing <- function(file # :string = full file path
@@ -34,11 +39,29 @@ parsing <- function(file # :string = full file path
                               stringsAsFactors = FALSE)
     
     # parsing
-    for (.stock in seq_along(data)) {
-        daily_quotes[.stock, ] = unlist(data[[.stock]])
+    for (stock in seq_along(data)) {
+        daily_quotes[stock, ] = unlist(data[[stock]])
     }
     
+    # clean
+    ## dir: convert '" ", "<p style= color:green>-</p>", "<p style= color:red>+</p>", "X"' to 'NA, "-", "+", "X"'
+    daily_quotes[, "dir"] = lapply(X = daily_quotes[, "dir"],
+                                   FUN = function(element) (ifelse(test = element == " ",
+                                                                   yes = NaN,
+                                                                   no = ifelse(test = element == "<p style= color:green>-</p>",
+                                                                               yes = "-",
+                                                                               no = ifelse(test = element == "<p style= color:red>+</p>",
+                                                                                           yes = "+",
+                                                                                           no = "X")))))
+    
     # setting the type of vars
+    ## numeric type
+    numeric_vars = c("trade_volume", "transaction", "trade_value", "opening_price", "highest_price", "lowest_price", "closing_price", "change", 
+                     "last_best_bid_price", "last_best_bid_volume", "last_best_ask_price", "last_best_ask_volume", "price_eaming_ratio")
+    
+    ## convert type
+    daily_quotes[, numeric_vars] = lapply(X = daily_quotes[, numeric_vars],
+                                          FUN = function(element) as.numeric(gsub(pattern = ",", replacement = "", x = element)))
     
     # return daily_quotes
     return(daily_quotes)  # :data.frame
