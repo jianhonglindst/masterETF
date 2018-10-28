@@ -2,9 +2,9 @@
 
  序   | 功能          | 程式名稱                                 |
 ------|---------------|------------------------------------------|
-[1]   |每日收盤價爬蟲 | [crawling_by_dates.R](#crawling_by_dates)|
+[1]   |每日收盤價爬蟲 | [crawling_worker.R](#crawling_worker)|
  
-## <span id = "crawling_by_dates"> 每日收盤價爬蟲: `crawling_by_dates.R` </span>
+## <span id = "crawling_worker"> 每日收盤價爬蟲: `crawling_worker.R` </span>
 
 #### 功能描述
 
@@ -19,16 +19,36 @@
 [1] | `--start-date` | 起始日期              | `yyyy-mm-dd`           | `2013-10-01`               | `2013-10-01`|
 [2] | `--end-date`   | 結束日期              | `yyyy-mm-dd`           | `2018-10-01`               | `now_date`  |
 [3] | `--response`   | 檔案類型              | `json`(default), `csv` | `json`                     | `json`      |
-[4] | `--module-path`| masterETF的模組路徑   |`../../masterETF`       | `/home/../masterETF     `  | `-`         |
-[5] | `--save-path`  | 儲存資料路徑          | `../../mi_index`       | `../crawler/stock/mi_index`| `-`         |
-[6] | `--max-delay`  | 下載最大延遲時間 (sec)| `integer`              | `15`                       | `15`        |
+[4] | `--save-path`  | 儲存資料路徑          | `../../mi_index`       | `../crawler/stock/mi_index`| `-`         |
+[5] | `--max-delay`  | 下載最大延遲時間 (sec)| `integer`              | `15`                       | `15`        |
 
 #### 使用範例
 
 ```
-Rscript /home/../masterETF/main/crawling_by_dates.R --start-date=2013-10-01 --end-date=2018-10-10 --module-path=/home/../masterETF --save-path=../crawler/stock/mi_index
+Rscript /home/../masterETF/main/crawling_worker.R --start-date=2013-10-01 --end-date=2018-10-10 --save-path=../crawler/stock/mi_index
+```
+
+```
+Rscript /home/../masterETF/main/crawling_worker.R --save-path=../crawler/stock/mi_index
 ```
 
 #### note
 
-- 如果沒有指定`--end-date`，此程式會自動使用當天的日期，所以最懶人的下載方式，只要設定專案模組路徑`--module-path`和欲儲存的資料的路徑`--save-path`即可。
+- 如果沒有指定`--end-date`，此程式會自動使用當天的日期，所以最懶人的下載方式，只要設定欲儲存的資料的路徑`--save-path`即可。(如使用範例2)
+- 如果是使用預設的`now_date`，程式內部會自動代入前一天的日期，因為`mi_index`資料是當日收盤行情，所以如果在收盤前就啟動的話，系統依然會獲得一份檔案，但此檔案內會沒有資料，故在保障可獲得資料的前提下，使用`now_date`，則會代入前一天的日期。
+
+
+#### 版本紀錄
+
+```
+versio: 1.0.0 (crawling_by_date.R)
+date: 2018/10/16
+```
+
+```
+version: 2.0.0 (crawling_worker.R)
+date:  2018/10/28
+fix: 
+	1. delete `moudle_path`
+	2. using new Rscript `crawling_worker.R`
+```
