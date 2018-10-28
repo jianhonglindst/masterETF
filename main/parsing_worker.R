@@ -22,12 +22,12 @@ read_arguments <- function() {
             option_list = list(
                 make_option(opt_str = c("-lp", "--load-path"),
                             dest    = "load_path",
-                            default = "/home/lewislin/crawler/stock/mi_index/",
+                            default = NULL,
                             metavar = "",
                             help    = "Setting the path for load the download data and error record."),
                 make_option(opt_str = c("-conf", "--config"),
                             dest    = "config_file",
-                            default = "/home/lewislin/Github/masterETF/config/config.json",
+                            default = NULL,
                             metavar = "",
                             help    = "Using custom config path. (Default: None)")
             )
@@ -73,7 +73,7 @@ read_txt <- function(path,
 
 # parsing function from single file
 parsing <- function(file # :string = full file path
-) {
+                    ) {
     
     # read json file by full path
     read_file = jsonlite::read_json(file)
@@ -120,8 +120,11 @@ parsing <- function(file # :string = full file path
     
     # setting the type of vars
     ## numeric type
-    numeric_vars = c("trade_volume", "transaction", "trade_value", "opening_price", "highest_price", "lowest_price", "closing_price", "change", 
-                     "last_best_bid_price", "last_best_bid_volume", "last_best_ask_price", "last_best_ask_volume", "price_eaming_ratio")
+    numeric_vars = c("trade_volume", "transaction", "trade_value",
+                     "opening_price", "highest_price", "lowest_price",
+                     "closing_price", "change", "last_best_bid_price",
+                     "last_best_bid_volume", "last_best_ask_price", "last_best_ask_volume",
+                     "price_eaming_ratio")
     
     ## character type
     character_vars = c("date", "stock_name", "dir")
@@ -133,7 +136,7 @@ parsing <- function(file # :string = full file path
     
     ## character type
     daily_quotes[, character_vars] = lapply(X = daily_quotes[, character_vars],
-                                          FUN = as.character)
+                                            FUN = as.character)
     
     # return daily_quotes
     return(daily_quotes)  # :data.frame
@@ -144,7 +147,7 @@ connect <- function(config,  # :json -> 'config.json'
                     source   # :character -> 'postgres_tw_stock'
                     ) {
     
-    connect_ = get(x = source,
+    connect_ = get(x   = source,
                    pos = config)
     
     conn = dbConnect(RPostgres::Postgres(),
@@ -201,11 +204,11 @@ sql = "INSERT INTO tw_stock_daily_quotes (date,
 main <- function() {
     
     # read command line
-    arguments = read_arguments()
+    arguments   = read_arguments()
     
     # setting arguments
-    load_path = path_check(path = arguments$load_path)
-    save_path = load_path
+    load_path   = path_check(path = arguments$load_path)
+    save_path   = load_path
     config_file = arguments$config_file
     
     # get config
@@ -229,8 +232,7 @@ main <- function() {
     cat(sprintf("----- Start to Parsing ----- \n"))
     
     # worker
-    #for (mission in mission_files) {
-    for (mission in c("mi_index_20131002.json", "mi_index_20131003.json", "mi_index_20131004.json", "mi_index_20131005.json")) {
+    for (mission in mission_files) {
         start_time = proc.time()
         tryCatch({
             
@@ -243,6 +245,8 @@ main <- function() {
             # insert data to database
             postgres_connect = connect(config = config, source = "postgres_tw_stock")
             for (idx_format_data in 1:dim(format_data)[1]) {
+                
+                # insert by row
                 row_data = format_data[idx_format_data, ]
 
                 query = dbSendQuery(conn = postgres_connect,
