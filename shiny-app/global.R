@@ -24,8 +24,3 @@ pool <- dbPool(
     password = "abcd1234zyxw0987",
     idleTimeout = 3600000
 )
-
-data_maxmin <- c(round(dbGetQuery(pool,
-                                  "SELECT MAX(data), MIN(data) from t_demo;"), 3))
-id_maxmin <- c(dbGetQuery(pool,
-                          "SELECT MAX(id), MIN(id) from t_demo;"))
