@@ -37,3 +37,7 @@ rsconnect/
 .Rproj.user
 packrat/lib*/
 packrat/src/
+
+shiny-app/packrat/lib*/
+shiny-app/packrat/src/
+
