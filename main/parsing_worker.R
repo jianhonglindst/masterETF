@@ -57,7 +57,7 @@ read_txt <- function(path,
     files = list.files(path = path, pattern = "*.txt")
     files_names = gsub(pattern = ".txt", replacement = "", x = files)
     
-    if (!identical(files_names, file_name)) {
+    if (!file_name %in% files_names) {
         file = c("mi_index_19700101.json")
     } else {
         for (name in files_names) {
@@ -222,8 +222,11 @@ main <- function() {
     ## finished file
     finished_files = read_txt(path = load_path, file_name = "parsing_finished")
     
+    ## parsing_error file
+    error_files = read_txt(path = load_path, file_name = "parsing_error")
+    
     ## missions: { all_files - finished_files }
-    mission_files = setdiff(x = all_files, y = finished_files)
+    mission_files = setdiff(x = all_files, y = union(x = finished_files, y = error_files))
     
     # cat parsing infomation
     cat("----- Waitting to parsing data list: ----- \n")
@@ -235,7 +238,7 @@ main <- function() {
     for (mission in mission_files) {
         start_time = proc.time()
         tryCatch({
-            
+                    
             # show crawler information
             cat(sprintf("----- Parsing Stock MI_INDEX Data, The file name is %s ----- \n", mission))
             
@@ -253,7 +256,6 @@ main <- function() {
                                     statement = sql,
                                     params = unlist(row_data, use.names = FALSE))
 
-                
                 dbClearResult(query)
             }
             dbDisconnect(postgres_connect)
